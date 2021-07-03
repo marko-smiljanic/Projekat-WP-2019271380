@@ -1,10 +1,9 @@
 #rezervacije karata
-#film: id, naziv, godina izlaska, reziser, datum (tacno vreme) pocetka projekcije, datum (tacno vreme) kraja projekcije
-#karta: id, naziv filma, cena, vreme trajanja rezervacije tj. vreme pocetka projekcije, broj karata
+#film: id, naziv, godina izlaska, reziser
+#karta: id, naziv filma, cena, vreme pocetka projekcije, vreme kraja projekcije
 #korisnik(kupac karte, administrator): id, korisnicko ime, lozinka, email. Administrator: dodavanje, izmena, brisanje. Korisnik: funkcije: pregled, rezervacija, potvrda rezervacije
-#korpa:prikaz karata i potvrda za rezervaciju
-#rezervacija: prikaz karte i korisnika koji je rezervisao i vremena kad je rezervisao, za admina
-#pocetna, log in stranica nudi opciju prijave ili kreiranja novog naloga (zabraniti kreiranje naloga sa istim korisnickim imenom i mejlom), administrator ima uvid u zahteve koji se naprave za kreiranje naloga i ima pravo da ih prihvati ili odbije
+#korpa:naziv filma, pocetak projekcije, broj karata, ukupna cena, korisnicko ime ko je rezervisao, karta id?, f-ja: i potvrda za rezervaciju
+#pocetna, log in stranica nudi opciju prijave ili kreiranja novog naloga (zabraniti kreiranje naloga sa istim korisnickim imenom i mejlom), moze da se pregleda stranica i bez naloga, administrator ima uvid u zahteve koji se naprave za kreiranje naloga i ima pravo da ih prihvati ili odbije
 ##U BAZI:preporucuyje se hesovanje lozinke i neki dodatni string koji se nalepi na lozinku hesovanu
 
 import flask
@@ -13,21 +12,23 @@ from flask import Flask
 from flaskext.mysql import MySQL
 from flaskext.mysql import pymysql
 
-from flask_jwt_extended import create_access_token      #ovo je za drugi nacin da se odradi login, biblioteka koja generise token, mora se naknadno instalirati
-from flask_jwt_extended import JWTManager               #da bi radilo mora ovo
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import JWTManager               
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
 
 from blueprints.korisnik_blueprint import korisnik_blueprint
   
-from utils.db import mysql                              #izmestili smo pravljenje objekta mysql u fajl db py u utils folderu, da bi mogli da koristimo u kupci blueprint py
+from utils.db import mysql 
+
+
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
 
 app.config["MYSQL_DATABASE_USER"] = "root"
 app.config["MYSQL_DATABASE_PASSWORD"] = "singidunum"
-app.config["MYSQL_DATABASE_DB"] = ""
-app.config["JWT_SECRET_KEY"] = "alkgjsdhh;'slkadfg"       #secret key za drugi nacin logovanja
+app.config["MYSQL_DATABASE_DB"] = "rezervacije_karata"
+app.config["JWT_SECRET_KEY"] = "alkgjsdhh;'slkadfg"       
 
 app.register_blueprint(korisnik_blueprint, url_prefix="/api/korisnici")
 
@@ -41,21 +42,18 @@ def home():
 @app.route("/api/login", methods=["POST"])
 def login():
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM korisnik WHERE korisnickoIme=%(korisnickoIme)s AND lozinka=%(lozinka)s", flask.request.json)
+    cursor.execute("SELECT * FROM korisnik WHERE korisnicko_ime=%(korisnicko_ime)s AND lozinka=%(lozinka)s", flask.request.json)
     korisnik = cursor.fetchone()
+    role = ""
+    if korisnik["tip_korisnika_id"] == 1:
+        role = "ADMIN"
+    else:
+        role = "USER"
     if korisnik is not None:                    
-        access_token = create_access_token(identity=korisnik["korisnickoIme"], additional_claims={"roles": ["USER"]})
+        access_token = create_access_token(identity=korisnik["korisnicko_ime"], additional_claims={"roles": [role], "id": korisnik["id"]})   #pamtim id da bih mogao posle da dodam komponentu ulogovani korisnik  #ovo sluzi za proveru u backend-u, za frontend proveravam prosto kao sto sam ovde sa promenljivom roles (manipulacija sa v-if i prikazom)
         return flask.jsonify(access_token), 200
     
-    return "", 403
-
-
-#nesto
-
-#linija
-#druga
-#nestoooo
-
+    return "Nema korisnika sa navedenim parametrima!", 403
 
 
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    
+    <script src="https://unpkg.com/vue@next"></script>                                  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>       
+    <script src="https://unpkg.com/vue-router@4"></script>                              
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">      <!--ukljucen bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   <!-- ovde smo ukljucili sa tudjeg servera, nije hostovano kod nas. ovo je ukljucen bundle bootstrap-a koji nam sluzi da koristimo slozenije stvari bootstrap-a -->
+
+    <title>Rezervacije karata</title>
+</head>
+<body id="app">
+    <script src="app/app.js" type="module"></script>    
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="">Bioskop</a>  <!-- ovde staviti pocetnu, tj. prikaz filmova na rutu "/" -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <router-link to="/profil" class="nav-link">Informacije o profilu</router-link>
+              </li> 
+              <li class="nav-item">
+                <router-link to="/korisnici" class="nav-link">Korisnici</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/login" class="nav-link">Login</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/logout" class="nav-link">Logout</router-link>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </nav>
+                                                               
+    <!-- <div>                                                           
+        <router-link to="/korisnici">Korisnici</router-link> </br> 
+        <router-link to="/login">Login</router-link> </br>
+        <router-link to="/logout">Logout</router-link>
+    </div> -->
+
+    
+    <div class="container">                                        
+        <router-view></router-view>
+    </div>
+
+
+
+
+
+</body>
+</html>
