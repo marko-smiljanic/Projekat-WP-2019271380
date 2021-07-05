@@ -1,6 +1,6 @@
 export default {     //sada ovde pisemo template
     template:   `
-    <button class="btn btn-warning mx-1 mt-3 mb-3" v-on:click="predjiNaDodavanjeKarte()">Dodaj novu kartu</button>
+    <button class="btn btn-warning mx-1 mt-3 mb-3" v-on:click="predjiNaDodavanjeKarte()" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Dodaj novu kartu</button>
     <div v-if="imaKarata == true">
         <h3 class="mb-3">Dostupne karte za film: {{film.naziv}} {{film.godina_izlaska}}</h3>
         <div v-for="k in karte">
@@ -10,9 +10,9 @@ export default {     //sada ovde pisemo template
                     <h5 class="card-title">Vreme pocetka: {{k.vreme_pocetka_projekcije}}</h5>
                     <h5 class="card-title">Vreme zavrsetka: {{k.vreme_zavrsetka_projekcije}}</h5>
                     <h5 class="card-title">Cena: {{k.cena}}</h5>
-                    <button class="btn btn-success mx-1 mb-3" v-on:click="predjiNaDodavanjeUKorpu(k.id)">Dodaj u korpu</button>
-                    <button class="btn btn-primary mx-1 mb-3" v-on:click="predjiNaIzmenuKarte(k.id)">Izmeni</button>
-                    <button class="btn btn-danger mx-1 mb-3" v-on:click="deleteKarta(k.id)">Ukloni</button>
+                    <button class="btn btn-success mx-1 mb-3" v-on:click="predjiNaDodavanjeUKorpu(k.id)" v-if="ulogovani_korisnik['tip_korisnika_id'] == 2">Dodaj u korpu</button>
+                    <button class="btn btn-primary mx-1 mb-3" v-on:click="predjiNaIzmenuKarte(k.id)" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Izmeni</button>
+                    <button class="btn btn-danger mx-1 mb-3" v-on:click="deleteKarta(k.id)" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Ukloni</button>
                 </div>
             </div>    
         </div>

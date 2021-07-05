@@ -35,7 +35,10 @@ export default {
     methods: {
         odjava(){
             localStorage.removeItem("token");
-            this.$router.push("/profil");
+            localStorage.removeItem("karta_u_korpi");     //ako se uloguje novi korisnik da ne ostane karta od proslog
+            //this.$router.push("/profil");
+            window.location.reload();   //refresh da mu se sklone komponente koje vidi samo administrator
+            //this.$router.push("/filmovi");     //zbog cega nece da odradi ovaj korak!???
         },
         proveraUlogovanosti(){
             if (localStorage.getItem("token") == null) {

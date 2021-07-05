@@ -14,6 +14,8 @@ import Karte from "./components/karte.js"
 import KartaDodavanjeForma from "./components/kartaDodavanjeForma.js"
 import KartaIzmenaForma from "./components/kartaIzmenaForma.js"
 import Korpa from "./components/korpa.js"
+import TabelaRezervacija from "./components/rezervacijaTabela.js"
+import Komponente from "./components/pravaPristupaZaCeleKomponente.js"
 
 
 axios.interceptors.request.use(config => {
@@ -40,6 +42,7 @@ const router = VueRouter.createRouter({
         {path: "/dodajKartu/:id", component: KartaDodavanjeForma},
         {path: "/izmeniKartu/:id", component: KartaIzmenaForma},
         {path: "/dodavanjeKarteUKorpu/:id", component: Korpa},
+        {path: "/rezervacije", component: TabelaRezervacija},
 
         
     ],
@@ -53,6 +56,7 @@ const app = Vue.createApp(Bioskop);
 app.component("tabela-korisnika", TabelaKorisnika);
 // app.component("korisnik-forma", KorisnikForma);  //ovako smo radili pre na vezbama da pravimo genericku formu, koja ce raditi i dodavanje i izmenu, sad vise nema smisla to da radimo jer smo uveli rutiranje a i na ovom predmetu nije obavezno
 app.component("tabela-filmova", TabelaFilmova);
+app.component("komponente", Komponente);
 
 
 

@@ -46,8 +46,9 @@ export default {     //sada ovde pisemo template
                 }
             });
         },
+        
     },
     created(){
         this.refreshData();
-    }
+    },
 }

@@ -10,13 +10,18 @@ export default {     //sada ovde pisemo template
                 <form v-on:submit.prevent="dodajUKorpu()"> 
                 <div class="card-tittle">
                     <label for="kolicina">Kolicina: </label>
-                    <input type="number" name="kolicina" class="form-control" placeholder="kolicina" v-model="kolicina" required>
+                    <input type="number" min="1" name="kolicina" class="form-control" placeholder="kolicina" v-model="kolicina" required>
                 </div>
                 
-                <h5 class="card-title mt-3">Ukupna cena: {{kolicina * karta.cena}}</h5>
+                <h4 class="card-title mt-3">Ukupna cena: <span style="color: red">{{kolicina * karta.cena}} din</span></h4>
 
-                <div class="mb-3">
+                <div class="mb-3" v-if="kliknut == false">
                     <input type="submit" class="btn btn-success" value="Dodaj">
+                </div>
+                
+                <h4 class="card-title mb-3 mt-2" v-if="kliknut == true" style="color: red">Zelite li da potrvrdite rezervaciju? </h4>
+                <div class="mb-3" v-if="kliknut == true">
+                    <button class="btn btn-danger" v-on:click="napraviNovuKartuUrezervaciji()">Rezervisi</button>
                 </div>
                 </form>
             </div>
@@ -27,7 +32,8 @@ export default {     //sada ovde pisemo template
             karta: {},
             film: {},
             kolicina: 0,
-            noviNiz: [],
+            kliknut: false,
+            ulogovani_korisnik: [],
         }
     },
     methods: {                     
@@ -44,22 +50,47 @@ export default {     //sada ovde pisemo template
                 });
             });
         },
+        refreshUlogovaniKorisnik(){              
+            axios.get("/api/korisnici/ulogovani").then((response) => {
+                if (localStorage.getItem("token") != null) {
+                    this.ulogovani_korisnik = response.data;
+                    this.ulogovan = true;
+                }else{
+                    ulogovan = false;
+                }
+            });
+        },
         dodajUKorpu(){
+            this.kliknut = true;            //ovo znaci da samo jednom moze da doda u korpu i posle toga se gubi funkcija za ponovno dodavanje i daju mu opcije za rezervaciju
             this.kolicina = parseInt(this.kolicina);
             let kartaUKorpi = {"kolicina": this.kolicina, "karta_id": this.karta.id};
 
-            
-            this.noviNiz.push(kartaUKorpi);
-            localStorage.setItem("karta_u_korpi", JSON.stringify(this.noviNiz));
+            localStorage.setItem("karta_u_korpi", JSON.stringify(kartaUKorpi));
 
-            //this.noviNiz = JSON.parse(localStorage.getItem("karta_u_korpi"));
-            //namestio sam da radi, ali ako se refresuje i ponovo se klikne na dodaj sve se gubi sto je bilo
-
-            
-        }
-        // napraviNovuKartuUrezervaciji(){  //ovde moram imati i rezervaciju u json-u, to ce biti i poslednji korak kreiranja rezervacije!
+            //trebao bih da omogucim izmenu i brisanje sadrzaja iz korpe (localStorage-a), ali posto sam zamislio da korpu ne cuvam trajno (u bazi)
+            //nego da je cuvam privremeno u localStorage ne znam to da uradim jer ne znam kako da nadodajem vrednost u local storage a da ne brisem postojecu
+            //pokusao sam sa: prvo ucitam vrednosti iz local storage, na to dodam novu i vratim ponovo u local storage, ali kada se stranica refresh-uje gubim ono sto sam imao u
+            //npr. promenljivoj koju sam ovde zvao noviNiz, i onda bi sledece dodavanje u local storage bilo ponistavanje svega i u korpi bi bila samo npr. ta jedna nova karta
+            //moj glavni problem je sto ne mogu da sacuvam vec postojece vrednosti u localstorage ako se refresh-uje strnaica, tj. ova komponenta
+        },
+        napraviNovuKartuUrezervaciji(){  //ovde moram imati i rezervaciju u json-u, to ce biti i poslednji korak kreiranja rezervacije!
             //sada odradim za rezervaciju, kreiram novu (tako sto uvezem sve iz local storage-a), i prosledim
-        // },
+            
+            //imao sam entitet u bazi karta_u_rezervaciji, ali ne vi dim svrhi da kad se klikne dodaj u rezervaciju da pravim dva entiteta automatski.
+
+            let karta_iz_korpe = JSON.parse(localStorage.getItem("karta_u_korpi"));
+            //console.log(rezervacija.kolicina);
+
+            let kolicina = karta_iz_korpe["kolicina"];
+            let karta_id = parseInt(karta_iz_korpe["karta_id"]);  //ili this.karta.id, ali bolje ovako jer dohvatamo sve iz local storage-a
+            let ukupna_cena = (kolicina * this.karta.cena);
+
+            let rezervacija = {"kolicina": kolicina, "ukupna_cena": ukupna_cena, "korisnik_id": this.ulogovani_korisnik.id, "karta_id": karta_id}
+            
+            axios.post("api/rezervacije", rezervacija).then((response) => {
+
+            });
+        },
 
 
     },
@@ -68,5 +99,6 @@ export default {     //sada ovde pisemo template
 
     created(){
         this.refreshKarta();
+        this.refreshUlogovaniKorisnik();
     }
 }

@@ -14,7 +14,7 @@ korisnik_blueprint = Blueprint("korisnik_blueprint", __name__)
 @jwt_required()
 def getAllKorisnici():
     #print(get_jwt())                          
-    # if get_jwt().get("roles") == "USER":      
+    #if get_jwt().get("roles") == "ADMIN":      
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM korisnik")
     korisnici = cursor.fetchall() 
@@ -23,6 +23,7 @@ def getAllKorisnici():
 
 
 @korisnik_blueprint.route("/<int:korisnik_id>", methods=["GET"])
+@jwt_required()
 def getOneKorisnik(korisnik_id):
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM korisnik WHERE id=%s", (korisnik_id, ))
@@ -48,7 +49,8 @@ def getUlogovani():
 #############################################################################
 
 
-@korisnik_blueprint.route("", methods=["POST"])            
+@korisnik_blueprint.route("", methods=["POST"]) 
+@jwt_required()           
 def dodajKorisnika():
     baza = mysql.get_db()
     cursor = baza.cursor() 
@@ -58,7 +60,8 @@ def dodajKorisnika():
     return flask.request.json, 201 
 
 
-@korisnik_blueprint.route("/<int:korisnik_id>", methods=["PUT"])       
+@korisnik_blueprint.route("/<int:korisnik_id>", methods=["PUT"])   
+@jwt_required()    
 def izmeniKorisnika(korisnik_id):
     korisnik = dict(flask.request.json)
     korisnik["korisnik_id"] = korisnik_id
@@ -73,7 +76,8 @@ def izmeniKorisnika(korisnik_id):
     return flask.jsonify(korisnik)
 
 
-@korisnik_blueprint.route("/<int:korisnik_id>", methods=["DELETE"])            
+@korisnik_blueprint.route("/<int:korisnik_id>", methods=["DELETE"])   
+@jwt_required()         
 def izbrisiKorisnika(korisnik_id):
     baza = mysql.get_db()
     cursor = baza.cursor() 

@@ -32,7 +32,8 @@ def getOneFilm(film_id):
     return("Not found", 404)
 
 
-@film_blueprint.route("", methods=["POST"])            
+@film_blueprint.route("", methods=["POST"])    
+@jwt_required()          
 def dodajFilm():
     baza = mysql.get_db()
     cursor = baza.cursor() 
@@ -42,7 +43,8 @@ def dodajFilm():
     return flask.request.json, 201 
 
 
-@film_blueprint.route("/<int:film_id>", methods=["PUT"])       
+@film_blueprint.route("/<int:film_id>", methods=["PUT"]) 
+@jwt_required()        
 def izmeniFilm(film_id):
     film = dict(flask.request.json)
     film["film_id"] = film_id
@@ -57,7 +59,8 @@ def izmeniFilm(film_id):
     return flask.jsonify(film)
 
 
-@film_blueprint.route("/<int:film_id>", methods=["DELETE"])            
+@film_blueprint.route("/<int:film_id>", methods=["DELETE"]) 
+@jwt_required()             
 def izbrisiKorisnika(film_id):
     baza = mysql.get_db()
     cursor = baza.cursor() 

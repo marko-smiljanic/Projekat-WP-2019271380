@@ -22,6 +22,7 @@ def getAllKarte():
 
 
 @karta_blueprint.route("/<int:karta_id>", methods=["GET"])
+@jwt_required() 
 def getOneKarta(karta_id):
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM karta WHERE id=%s", (karta_id, ))
@@ -32,7 +33,8 @@ def getOneKarta(karta_id):
     return("Not found", 404)
 
 
-@karta_blueprint.route("", methods=["POST"])            
+@karta_blueprint.route("", methods=["POST"])   
+@jwt_required()           
 def dodajKartu():
     baza = mysql.get_db()
     cursor = baza.cursor() 
@@ -42,13 +44,14 @@ def dodajKartu():
     return flask.request.json, 201 
 
 
-@karta_blueprint.route("/<int:karta_id>", methods=["PUT"])       
+@karta_blueprint.route("/<int:karta_id>", methods=["PUT"])   
+@jwt_required()      
 def izmeniKartu(karta_id):
     karta = dict(flask.request.json)
     karta["karta_id"] = karta_id
 
     baza = mysql.get_db()
-    cursor = baza.cursor()   #necu da menjam film_id                film_id=%(film_id)s, ovo sam mogao izostaviti i u insert-u, manje bih koda imao u dodavanju i ne bih morao da ucitavam dati film!!!!!!!!!!!! glup sam.
+    cursor = baza.cursor()                                                  #necu da menjam film_id film_id=%(film_id)s, ovo sam mogao izostaviti i u insert-u, manje bih koda imao u dodavanju i ne bih morao da ucitavam dati film!!! ali negde mi svakako treba
     cursor.execute("UPDATE karta SET vreme_pocetka_projekcije=%(vreme_pocetka_projekcije)s, vreme_zavrsetka_projekcije=%(vreme_zavrsetka_projekcije)s, cena=%(cena)s WHERE id=%(karta_id)s", karta)
     baza.commit()
     cursor.execute("SELECT * FROM karta WHERE id=%s", (karta_id, ))
@@ -57,7 +60,8 @@ def izmeniKartu(karta_id):
     return flask.jsonify(karta)
 
 
-@karta_blueprint.route("/<int:karta_id>", methods=["DELETE"])            
+@karta_blueprint.route("/<int:karta_id>", methods=["DELETE"])     
+@jwt_required()         
 def izbrisiKartu(karta_id):
     baza = mysql.get_db()
     cursor = baza.cursor() 
