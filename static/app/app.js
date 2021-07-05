@@ -1,15 +1,19 @@
-import TabelaKorisnika from "./components/tabelaKorisnika.js"
-import Prodavnica from "./components/prodavnica.js"
-
-
-
-
-
-
+import Bioskop from "./components/bioskop.js"    //prazna komponenta, sluzi mi samo da uradim create app!!!
+import TabelaKorisnika from "./components/korisnikTabela.js"
 import Korisnici from "./components/korisnici.js"
+import KorisnikDodavanjeForma from "./components/korisnikDodavanjeForma.js"
+import KorisnikIzmenaForma from "./components/korisnikIzmenaForma.js"
 import Login from "./components/login.js"
 import Logout from "./components/logout.js"
 import UlogovaniKorisnik from "./components/ulogovaniKorisnik.js"
+import TabelaFilmova from "./components/filmTabela.js"
+import Filmovi from "./components/filmovi.js"
+import FilmDodavanjeForma from "./components/filmDodavanjeForma.js"
+import FilmIzmenaForma from "./components/filmIzmenaForma.js"
+import Karte from "./components/karte.js"
+import KartaDodavanjeForma from "./components/kartaDodavanjeForma.js"
+import KartaIzmenaForma from "./components/kartaIzmenaForma.js"
+import Korpa from "./components/korpa.js"
 
 
 axios.interceptors.request.use(config => {
@@ -22,11 +26,22 @@ axios.interceptors.request.use(config => {
 
 const router = VueRouter.createRouter({  
     history: VueRouter.createWebHashHistory(),
-    routes: [
+    routes: [                                              //ideja je da korenska putanja budu filmovi, sto je valjda primaran entitet projekta
+        {path: "/korisnici", component: Korisnici}, 
         {path: "/login", component: Login},
         {path: "/logout", component: Logout},
-        {path: "/korisnici", component: Korisnici}, 
-        {path: "/profil", component: UlogovaniKorisnik},            
+        {path: "/profil", component: UlogovaniKorisnik},   
+        {path: "/dodajKorisnika", component: KorisnikDodavanjeForma},    
+        {path: "/korisnici/:id", component: KorisnikIzmenaForma},
+        {path: "/filmovi", component: Filmovi},
+        {path: "/dodajFilm", component: FilmDodavanjeForma},
+        {path: "/filmovi/:id", component: FilmIzmenaForma},
+        {path: "/karte/:id", component: Karte},                     //ovde sam morao prikaz karte sa id-jem jer zelim samo da prikazem one karte za dati film
+        {path: "/dodajKartu/:id", component: KartaDodavanjeForma},
+        {path: "/izmeniKartu/:id", component: KartaIzmenaForma},
+        {path: "/dodavanjeKarteUKorpu/:id", component: Korpa},
+
+        
     ],
   })
 
@@ -34,9 +49,10 @@ const router = VueRouter.createRouter({
 
 
 
-const app = Vue.createApp(Prodavnica);
+const app = Vue.createApp(Bioskop);
 app.component("tabela-korisnika", TabelaKorisnika);
-
+// app.component("korisnik-forma", KorisnikForma);  //ovako smo radili pre na vezbama da pravimo genericku formu, koja ce raditi i dodavanje i izmenu, sad vise nema smisla to da radimo jer smo uveli rutiranje a i na ovom predmetu nije obavezno
+app.component("tabela-filmova", TabelaFilmova);
 
 
 

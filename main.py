@@ -9,7 +9,7 @@
 import flask
 from flask import Flask
 
-from flaskext.mysql import MySQL
+from flaskext.mysql import MySQL                    #uplodovano u utils foldera, posle fajl db.py importovan iz utils-a tako da mi ova dva importa sada ne trebaju
 from flaskext.mysql import pymysql
 
 from flask_jwt_extended import create_access_token
@@ -17,9 +17,12 @@ from flask_jwt_extended import JWTManager
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
 
+from utils.db import mysql                          #objekat mysql izmesten u utils da bi ga mogao koristiti u buleprint-u
+
 from blueprints.korisnik_blueprint import korisnik_blueprint
-  
-from utils.db import mysql 
+from blueprints.film_blueprint import film_blueprint
+from blueprints.karta_blueprint import karta_blueprint
+####  
 
 
 
@@ -30,7 +33,15 @@ app.config["MYSQL_DATABASE_PASSWORD"] = "singidunum"
 app.config["MYSQL_DATABASE_DB"] = "rezervacije_karata"
 app.config["JWT_SECRET_KEY"] = "alkgjsdhh;'slkadfg"       
 
+
 app.register_blueprint(korisnik_blueprint, url_prefix="/api/korisnici")
+app.register_blueprint(film_blueprint, url_prefix="/api/filmovi")
+app.register_blueprint(karta_blueprint, url_prefix="/api/karte")
+####
+
+
+
+
 
 mysql.init_app(app)
 jwt = JWTManager(app)
@@ -50,10 +61,11 @@ def login():
     else:
         role = "USER"
     if korisnik is not None:                    
-        access_token = create_access_token(identity=korisnik["korisnicko_ime"], additional_claims={"roles": [role], "id": korisnik["id"]})   #pamtim id da bih mogao posle da dodam komponentu ulogovani korisnik  #ovo sluzi za proveru u backend-u, za frontend proveravam prosto kao sto sam ovde sa promenljivom roles (manipulacija sa v-if i prikazom)
+        access_token = create_access_token(identity=korisnik["korisnicko_ime"], additional_claims={"roles": [role], "id": korisnik["id"]})   #pamtim id da bih mogao posle da dodam komponentu ulogovani korisnik  #ovo sluzi za proveru u backend-u, za frontend proveravam prosto sa v-if i prikazom)
         return flask.jsonify(access_token), 200
     
     return "Nema korisnika sa navedenim parametrima!", 403
+
 
 
 

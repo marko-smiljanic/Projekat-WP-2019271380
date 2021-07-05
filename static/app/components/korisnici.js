@@ -2,9 +2,8 @@ export default {     //sada ovde pisemo template
     template:   `
     <div>
         <h1>Korisnici</h1>
-        <tabela-korisnika v-bind:korisnici="korisnici" v-on:uklanjanje="deleteKorisnik" v-on:izmena="setKorisnikZaIzmenu"></tabela-korisnika>       
-        <korisnik-forma v-on:sacuvaj="napraviNovogKorisnika" v-bind:tekst="'Dodaj'" v-bind:tekst2="'Dodaj korisnika'"></korisnik-forma>
-        <!-- <korisnik-forma v-bind:korisnik="korisnikZaIzmenu" v-bind:tekst="'Izmeni'" v-bind:tekst2="'Izmeni korisnika'" v-on:sacuvaj="izmeniKorisnika"></korisnik-forma> -->
+        <tabela-korisnika v-bind:korisnici="korisnici" v-on:uklanjanje="deleteKorisnik" v-on:izmena="setKorisnikZaIzmenu"></tabela-korisnika> 
+        <button class="btn btn-warning" v-on:click="predjiNaDodavanje()">Dodaj novog korisnika</button>     
     </div>
     `,
     data() {
@@ -24,22 +23,30 @@ export default {     //sada ovde pisemo template
                 this.refreshData();
             });
         },
-        napraviNovogKorisnika(kor){
-            axios.post("api/korisnici", kor).then((response) => {
-                this.refreshData();
+        // napraviNovogKorisnika(kor){
+        //     axios.post("api/korisnici", kor).then((response) => {
+        //         this.refreshData();
 
-            });
-        },
-        setKorisnikZaIzmenu(kor){
+        //     });
+        // },
+        setKorisnikZaIzmenu(kor){    //trenutno radi samo prelazak na drugu komponentu, ovo moram odraditi preko podataka iz komponente tabele da bi znao koji je korisnik odabran za izmenu!!!
             //this.kupacZaIzmenu = {...kupac};
 
             this.$router.push(`/korisnici/${kor.id}`);
         },
-        izmeniKorisnika(kor){
-            axios.put(`api/korisnici/${kor.id}`, kor).then((response) => {
-                this.refreshData();
-            });  
+        // izmeniKorisnika(kor){
+        //     axios.put(`/api/korisnici/${kor.id}`, kor).then((response) => {
+        //         this.refreshData();
+        //     });  
+        // },
+
+
+        predjiNaDodavanje(){
+            this.$router.push("/dodajKorisnika");
         },
+        // predjiNaIzmenu(){
+        //     this.$router.push(`/korisnici/${kor.id}`);
+        // }
 
     },
     created(){

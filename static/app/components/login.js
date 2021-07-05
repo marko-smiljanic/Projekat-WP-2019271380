@@ -69,16 +69,29 @@ export default {
             }
         },
 
-
-
-
-
-//nisam odradio nista sto je vezano za proveru tipa korisnika u smislu da sam trebao da listam i tu bazu (za to moram imati refreshData funkciju za tipove korisnika). for petljom prodjem kroz ucitani tip korisnika i gde mi se poklopi id iz tipa korisnika sa tip_korisnika_id u datom korisniku, i kada nadjem tip korisnika ucitam njegovo polje-tekst
-//ostalo mi je da odradim izmenu i brisanje za korisnike, //TODO: kako resiti da nema prikaza komponente korisnika kada nije niko prijavljen i kada korisnik nije administrator?
-//ako local storage token nije null onda znam da je prijavljen i onda mogu da pravim novu komponentu za prikaz profila, to sve radim u v-if-u u komponenti za prikaz logovanog korisnika, to sam mogao odraditi i za logout, tj. da ga skloni ako nije niko ulogovan      
-//dodam u filmove komponentu, kad se klikne na dodaj u korpu dugme, dohvatim korpu iz local storage appendujem i vratim nazad, kad klikne rezervisi onda se kreira rezervacija sa podacima iz korpe
+    
     },
     created() {
         this.proveraUlogovanosti();
     }
 }
+
+// #########################  KOMENTARI VEZANI ZA PROJEKAT  ##########################
+
+
+//TODO:  (ispraviti u ulogovani korisnik linije: 7 i 8 i prikaz u tabeli korisnika kolone tip korisnika, i dalje stoji 1 ili 2) nisam odradio nista sto je vezano za proveru tipa korisnika u smislu da sam trebao da listam i tu bazu (za to moram imati refreshData funkciju za tipove korisnika). for petljom prodjem kroz ucitani tip korisnika i gde mi se poklopi id iz tipa korisnika sa tip_korisnika_id u datom korisniku, i kada nadjem tip korisnika ucitam njegovo polje-tekst
+
+//TODO: KAKOO? resiti da nema prikaza cele komponente korisnika kada nije niko prijavljen i kada korisnik nije administrator?
+
+//kako da kontrolisem kada istice validnost jwt?
+//Da li mi je prazna komponenta Bioskop suvisna, na sta bih odradio create app da nje nema? Da li moze na neku drugu komponentu
+//ako local storage token nije null onda znam da je prijavljen i onda mogu da pravim novu komponentu za prikaz profila, to sve radim u v-if-u u komponenti za prikaz logovanog korisnika, to sam mogao odraditi i za logout, tj. da ga skloni ako nije niko ulogovan      
+//dodam u karte komponentu, kad se klikne na dodaj u korpu dugme, dohvatim korpu iz local storage appendujem i vratim nazad, kad klikne rezervisi onda se kreira rezervacija sa podacima iz korpe
+//ideja je da nemam izmenu i brisanje u tabeli tipa korisnika jer zelim da postoje samo dva, i da se ne komplikuje dodatno oko toga
+//treba obraditi zasto se komponenta korisnici ne prikazuje ako npr. neko nije logovan? KAKO???
+//karte_blueprint.py  f-ja:izmena: necu da menjam film_id                film_id=%(film_id)s, ovo sam mogao izostaviti i u insert-u, manje bih koda imao u dodavanju i ne bih morao da ucitavam dati film!!!!!!!!!!!! glup sam.
+
+
+
+
+

@@ -3,3 +3,4 @@ from flaskext.mysql import pymysql
 
 
 mysql = MySQL( cursorclass=pymysql.cursors.DictCursor)
+

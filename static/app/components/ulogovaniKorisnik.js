@@ -4,7 +4,7 @@ export default {     //sada ovde pisemo template
     <div class="alert alert-info" role="alert" v-if="ulogovan == true">
         <h2>Korisnicko ime: {{this.ulogovani_korisnik["korisnicko_ime"]}}</h2>
         <h2>Kontakt email: {{this.ulogovani_korisnik["kontakt_email"]}}</h2>
-        <h2 v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Tip naloga: Administrator</h2>
+        <h2 v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Tip naloga: Administrator</h2>   <!-- ovo sam odradio ovako za tip korisnika jer nisam ucitavao tip korisnika u backend-jos, odradio sam prvo samo za korisnike da bih odma zakacio prava pristupa -->
         <h2 v-if="ulogovani_korisnik['tip_korisnika_id'] == 2">Tip naloga: Korisnik</h2>
     </div>
 
