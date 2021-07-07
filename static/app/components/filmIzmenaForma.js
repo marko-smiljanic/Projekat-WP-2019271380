@@ -5,7 +5,7 @@ export default {
         }                                                      
     },                                                                                                                 
     template: `
-        <form v-on:submit.prevent="izmeniFilm(film)">
+        <form v-on:submit.prevent="izmeniFilm(film)" class="mt-3">
             <fieldset>
                 <legend>Izmena postojeceg filma</legend>
                 <div class="mb-3">
@@ -25,7 +25,7 @@ export default {
                     <textarea name="opis" v-model="film.kratak_opis" class="form-control" placeholder="Opis"></textarea>
                 </div>
                 <div class="mb-3">
-                    <input type="submit" class="btn btn-warning" value="Izmeni">
+                    <input type="submit" class="btn btn-primary" value="Izmeni">
                 </div>
             </fieldset>
         </form>

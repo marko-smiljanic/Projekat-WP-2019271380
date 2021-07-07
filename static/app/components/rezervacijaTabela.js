@@ -13,8 +13,10 @@ export default {
                 <tr>
                     <th>Kolicina</th>
                     <th>Ukupna cena</th>
-                    <th>Korisnik ID</th>
-                    <th>Karta ID</th>
+                    <th>Korisnik</th>
+                    <th>Film</th>
+                    <th>Pocetak</th>
+                    <th>Kraj</th>
                     <th colspan="2">Akcije</th>
                 </tr>
             </thead>
@@ -22,8 +24,10 @@ export default {
                 <tr v-for="rr in rezervacije">
                     <td>{{rr.kolicina}}</td>
                     <td>{{rr.ukupna_cena}}</td>
-                    <td>{{rr.korisnik_id}}</td>
-                    <td>{{rr.karta_id}}</td>
+                    <td>{{rr.korisnik}}</td>
+                    <td>{{rr.film}}</td>
+                    <td>{{rr.pocetak}}</td>
+                    <td>{{rr.kraj}}</td>
                     <td><button class="btn btn-danger" v-on:click="deleteRezervacija(rr.id)">Ukloni</button></td>
                 </tr>
             </tbody>

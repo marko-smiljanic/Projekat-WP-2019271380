@@ -3,7 +3,11 @@ export default {     //sada ovde pisemo template
     <div>
         <h1>Korisnici</h1>
         <tabela-korisnika v-bind:korisnici="korisnici" v-on:uklanjanje="deleteKorisnik" v-on:izmena="setKorisnikZaIzmenu"></tabela-korisnika> 
-        <button class="btn btn-warning" v-on:click="predjiNaDodavanje()">Dodaj novog korisnika</button>     
+        
+        <div class="text-center">
+            <button class="btn btn-warning" v-on:click="predjiNaDodavanje()">Dodaj novog korisnika</button> 
+        </div>
+    
     </div>
     `,
     data() {

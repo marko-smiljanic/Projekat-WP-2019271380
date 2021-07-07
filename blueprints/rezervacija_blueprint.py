@@ -14,35 +14,58 @@ rezervacija_blueprint = Blueprint("rezervacija_blueprint", __name__)
 @jwt_required()  
 def getAllRezervacije():
     #print(get_jwt())                          
-    # if get_jwt().get("roles") == "USER":      
-    cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM rezervacija")
-    rezervacije = cursor.fetchall() 
+    # if get_jwt().get("roles") == "USER":   
+    if get_jwt().get("roles") == "ADMIN":   
+        cursor = mysql.get_db().cursor()
+        cursor.execute("SELECT * FROM rezervacija")
+        rezervacije = cursor.fetchall() 
+        if rezervacije is not None:
+            for rr in rezervacije:                      #da bih mogao da prikazem i korisnikovo ime u tabeli
+                cursor.execute("SELECT korisnicko_ime FROM korisnik WHERE id=%s", (rr["korisnik_id"]))
+                kor_ime = cursor.fetchone()
 
-    return flask.jsonify(rezervacije)
+                cursor.execute("SELECT * FROM karta WHERE id=%s", (rr["karta_id"]))
+                karta = cursor.fetchone()
+
+                cursor.execute("SELECT * FROM film WHERE id=%s", (karta["film_id"]))
+                film = cursor.fetchone()
+
+                rr["korisnik"] = kor_ime["korisnicko_ime"]                #u recnik ubacimo da ima jos polje ime od korisnika
+                rr["film"] = film["naziv"]
+                rr["pocetak"] = karta["vreme_pocetka_projekcije"]
+                rr["kraj"] = karta["vreme_zavrsetka_projekcije"]
+            return flask.jsonify(rezervacije) 
+
+        return("Not found", 404)
+
+    return("Nemate prava za ovaj zahtev!", 403)
 
 
 @rezervacija_blueprint.route("/<int:rezervacija_id>", methods=["GET"])
 @jwt_required()  
 def getOneRezervacija(rezervacija_id):
-    cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM rezervacija WHERE id=%s", (rezervacija_id, ))
-    rezervacija = cursor.fetchone()   
-    if rezervacija is not None:
-        return flask.jsonify(rezervacija) 
+    if get_jwt().get("roles") == "ADMIN":  
+        cursor = mysql.get_db().cursor()
+        cursor.execute("SELECT * FROM rezervacija WHERE id=%s", (rezervacija_id, ))
+        rezervacija = cursor.fetchone()   
+        if rezervacija is not None:
+            return flask.jsonify(rezervacija) 
+        return("Not found", 404)
 
-    return("Not found", 404)
+    return("Nemate prava za ovaj zahtev!", 403)
 
 
-@rezervacija_blueprint.route("", methods=["POST"]) 
+@rezervacija_blueprint.route("", methods=["POST"])   #neka zamisao je da samo user moze da pravi rezervaciju
 @jwt_required()             
 def dodajRezervaciju():
-    baza = mysql.get_db()
-    cursor = baza.cursor()
-    cursor.execute("INSERT INTO rezervacija(kolicina, ukupna_cena, korisnik_id, karta_id) VALUES(%(kolicina)s, %(ukupna_cena)s, %(korisnik_id)s, %(karta_id)s)", flask.request.json)
-    baza.commit()
+    if get_jwt().get("roles") == "USER":  
+        baza = mysql.get_db()
+        cursor = baza.cursor()
+        cursor.execute("INSERT INTO rezervacija(kolicina, ukupna_cena, korisnik_id, karta_id) VALUES(%(kolicina)s, %(ukupna_cena)s, %(korisnik_id)s, %(karta_id)s)", flask.request.json)
+        baza.commit()
+        return flask.request.json, 201 
 
-    return flask.request.json, 201 
+    return("Nemate prava za ovaj zahtev!", 403)
 
 
 # @film_blueprint.route("/<int:film_id>", methods=["PUT"])    #mislim da mi ova funkcionalnost za rezervaciju ne treba   
@@ -63,11 +86,12 @@ def dodajRezervaciju():
 @rezervacija_blueprint.route("/<int:rezervacija_id>", methods=["DELETE"]) 
 @jwt_required()             
 def izbrisiRezervaciju(rezervacija_id):
-    baza = mysql.get_db()
-    cursor = baza.cursor() 
-    cursor.execute("DELETE FROM rezervacija WHERE id=%s", (rezervacija_id, ))
-    #treba da obrisem i karte u rezervaciji kada obrisem rezervaciju
-    baza.commit()
+    if get_jwt().get("roles") == "ADMIN":
+        baza = mysql.get_db()
+        cursor = baza.cursor() 
+        cursor.execute("DELETE FROM rezervacija WHERE id=%s", (rezervacija_id, ))
+        baza.commit()
+        return ""
 
-    return ""
+    return("Nemate prava za ovaj zahtev!", 403)
 

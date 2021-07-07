@@ -1,7 +1,7 @@
 export default {     //sada ovde pisemo template
     template:   `
-    <h5>Informacije o nalogu: </h5> </br>
-    <div class="alert alert-info" role="alert" v-if="ulogovan == true">
+    <h4 class="mt-3 mb-2 fw-lighter">Informacije o nalogu: </h4>
+    <div class="alert alert-light shadow" role="alert" v-if="ulogovan == true">
         <h2>Korisnicko ime: {{this.ulogovani_korisnik["korisnicko_ime"]}}</h2>
         <h2>Kontakt email: {{this.ulogovani_korisnik["kontakt_email"]}}</h2>
         <h2 v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Tip naloga: Administrator</h2>   <!-- ovo sam odradio ovako za tip korisnika jer nisam ucitavao tip korisnika u backend-jos, odradio sam prvo samo za korisnike da bih odma zakacio prava pristupa -->

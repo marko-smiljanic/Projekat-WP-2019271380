@@ -5,7 +5,7 @@ export default {
         }                                                      
     },                                                                                                                 
     template: `
-        <form v-on:submit.prevent="napraviNovogKorisnika(noviKorisnik)">
+        <form v-on:submit.prevent="napraviNovogKorisnika(noviKorisnik)" class="mt-3">
             <fieldset>
                 <legend>Dodavanje novog korisnika</legend>
                 <div class="mb-3">

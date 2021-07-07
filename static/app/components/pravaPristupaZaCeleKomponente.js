@@ -1,7 +1,7 @@
 export default {     //sada ovde pisemo template
     template:   `
     <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="">Bioskop</a>  ovde staviti pocetnu, tj. prikaz filmova na rutu "/" -->
           <router-link to="/filmovi" class="navbar-brand">Bioskop</router-link>

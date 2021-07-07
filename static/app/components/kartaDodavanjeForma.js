@@ -7,7 +7,7 @@ export default {
         }                                                      
     },                                                                                                                 
     template: `
-        <form v-on:submit.prevent="napraviNovuKartu(novaKarta)">
+        <form v-on:submit.prevent="napraviNovuKartu(novaKarta)" class="mt-3">
             <fieldset>
                 <legend>Dodavanje nove karte za film {{film.naziv}}</legend>
                 <div class="mb-3">

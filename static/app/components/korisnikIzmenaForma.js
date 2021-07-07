@@ -5,7 +5,7 @@ export default {
         }                                                      
     },                                                                                                                 
     template: `
-        <form v-on:submit.prevent="izmeniKorisnika(korisnik)">
+        <form v-on:submit.prevent="izmeniKorisnika(korisnik)" class="mt-3">
             <fieldset>
                 <legend>Izmena postojeceg korisnika</legend>
                 <div class="mb-3">
@@ -28,7 +28,7 @@ export default {
                     </select>
                 </div>
                 <div class="mb-3">
-                    <input type="submit" class="btn btn-warning" value="Izmeni">
+                    <input type="submit" class="btn btn-primary" value="Izmeni">
                 </div>
             </fieldset>
         </form>

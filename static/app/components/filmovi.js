@@ -1,7 +1,7 @@
 export default {     //sada ovde pisemo template
     template:   `
     <div>
-        <div class="d-inline-flex me-3 mt-2" ><h1>Filmovi</h1></div>
+        <div class="d-inline-flex me-3 mt-2 mb-3" ><h1>Filmovi</h1></div>
         <div class="d-inline-flex mb-3 mt-2" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1"><button class="btn btn-warning mx-3" v-on:click="predjiNaDodavanje">Dodaj novi film</button></div>
 
         <tabela-filmova v-bind:filmovi="filmovi" v-on:uklanjanje="deleteFilm" v-on:izmena="setFilmZaIzmenu"></tabela-filmova> 

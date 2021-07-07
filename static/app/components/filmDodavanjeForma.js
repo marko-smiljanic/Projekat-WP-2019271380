@@ -5,7 +5,7 @@ export default {
         }                                                      
     },                                                                                                                 
     template: `
-        <form v-on:submit.prevent="napraviNoviFilm(noviFilm)">
+        <form v-on:submit.prevent="napraviNoviFilm(noviFilm)" class="mt-3">
             <fieldset>
                 <legend>Dodavanje novog filma</legend>
                 <div class="mb-3">

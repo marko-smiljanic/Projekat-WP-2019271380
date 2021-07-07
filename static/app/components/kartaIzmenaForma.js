@@ -8,7 +8,7 @@ export default {
         }                                                      
     },                                                                                                                 
     template: `
-        <form v-on:submit.prevent="izmeniKartu(karta)">
+        <form v-on:submit.prevent="izmeniKartu(karta)" class="mt-3">
             <fieldset>
                 <legend>Izmena karte za film: {{film.naziv}}</legend>
                 <div class="mb-3">
@@ -24,7 +24,7 @@ export default {
                     <input type="number" name="cena" v-model="karta.cena" class="form-control" placeholder="Cena" required>
                 </div>
                 <div class="mb-3">
-                    <input type="submit" class="btn btn-warning" value="Izmeni">
+                    <input type="submit" class="btn btn-primary" value="Izmeni">
                 </div>
             </fieldset>
         </form>

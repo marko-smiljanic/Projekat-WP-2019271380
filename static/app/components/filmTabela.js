@@ -8,7 +8,7 @@ export default {
         }
     },
     template: `      
-        <div class="card mb-4" style="max-width: 930px;" v-for="f in filmovi">
+        <div class="card mb-4 shadow bg-light" style="max-width: 930px;" v-for="f in filmovi">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="" class="img-fluid rounded-start" alt="">

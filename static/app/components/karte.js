@@ -1,10 +1,13 @@
 export default {     //sada ovde pisemo template
     template:   `
-    <button class="btn btn-warning mx-1 mt-3 mb-3" v-on:click="predjiNaDodavanjeKarte()" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Dodaj novu kartu</button>
+    <div class="text-center" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">
+        <button class="btn btn-warning mt-4" v-on:click="predjiNaDodavanjeKarte()">Dodaj novu kartu</button>
+    </div>   <!-- greska sto mi se nije prikazala komponenta je tta sto nisam bio zatvorio div tag pa je sve ovo posmatralo da je jedan div tag-->
+    
     <div v-if="imaKarata == true">
-        <h3 class="mb-3">Dostupne karte za film: {{film.naziv}} {{film.godina_izlaska}}</h3>
+        <h3 class="mb-4 mt-3 text-center">Dostupne karte za film: {{film.naziv}} {{film.godina_izlaska}}</h3>
         <div v-for="k in karte">
-            <div class="card text-dark bg-light mb-3" style="max-width: 20rem;" v-if="k.film_id == film.id">
+            <div class="card text-dark bg-light mb-3 shadow mx-auto" style="max-width: 20rem;" v-if="k.film_id == film.id">
                 <div class="card-header">{{film.naziv}}</div>
                 <div class="card-body">
                     <h5 class="card-title">Vreme pocetka: {{k.vreme_pocetka_projekcije}}</h5>
@@ -68,7 +71,7 @@ export default {     //sada ovde pisemo template
 
             });
         },
-        refreshKorisnici(){                 //malo sam pozurio sa pravima pristupa !! ! !!! !!! ! ! !!
+        refreshKorisnici(){
             axios.get("/api/korisnici/ulogovani").then((response) => {
                 if (localStorage.getItem("token") != null) {
                     this.ulogovani_korisnik = response.data;

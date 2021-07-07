@@ -43,6 +43,7 @@ const router = VueRouter.createRouter({
         {path: "/izmeniKartu/:id", component: KartaIzmenaForma},
         {path: "/dodavanjeKarteUKorpu/:id", component: Korpa},
         {path: "/rezervacije", component: TabelaRezervacija},
+        {path: "/", component: Filmovi},   //nisam dodao odma na pocetku da root putanja budu filmovi odnosno stranica koja se prva prikaze kada se pokrene aplikacija, zbog toga sam dodao sad jer me mrzi da menjam rutu /filmovi svuda u komponentama
 
         
     ],
