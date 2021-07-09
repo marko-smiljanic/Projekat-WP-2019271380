@@ -16,6 +16,8 @@ import KartaIzmenaForma from "./components/kartaIzmenaForma.js"
 import Korpa from "./components/korpa.js"
 import TabelaRezervacija from "./components/rezervacijaTabela.js"
 import Komponente from "./components/pravaPristupaZaCeleKomponente.js"
+import SignIn from "./components/sign-in.js"
+import ZahtevZaKreiranjeNaloga from "./components/zahteviZaPravljenjeNalogaTabela.js"
 
 
 axios.interceptors.request.use(config => {
@@ -44,6 +46,8 @@ const router = VueRouter.createRouter({
         {path: "/dodavanjeKarteUKorpu/:id", component: Korpa},
         {path: "/rezervacije", component: TabelaRezervacija},
         {path: "/", component: Filmovi},   //nisam dodao odma na pocetku da root putanja budu filmovi odnosno stranica koja se prva prikaze kada se pokrene aplikacija, zbog toga sam dodao sad jer me mrzi da menjam rutu /filmovi svuda u komponentama
+        {path: "/sign-in", component: SignIn},
+        {path: "/zahtevi", component: ZahtevZaKreiranjeNaloga},
 
         
     ],

@@ -23,6 +23,9 @@ export default {     //sada ovde pisemo template
                 <router-link to="/rezervacije" class="nav-link" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Rezervacije</router-link>
               </li>
               <li class="nav-item">
+              <router-link to="/zahtevi" class="nav-link" v-if="ulogovani_korisnik['tip_korisnika_id'] == 1">Zahtevi za kreiranje naloga</router-link>
+            </li>
+              <li class="nav-item">
                 <router-link to="/login" class="nav-link" v-if="ulogovan == false">Login</router-link>
               </li>
               <li class="nav-item">

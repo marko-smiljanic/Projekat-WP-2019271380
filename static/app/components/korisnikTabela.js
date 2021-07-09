@@ -22,7 +22,8 @@ export default {
                     <td>{{kor.korisnicko_ime}}</td>
                     <td>{{kor.lozinka}}</td>
                     <td>{{kor.kontakt_email}}</td>
-                    <td>{{kor.tip_korisnika_id}}</td>
+                    <td v-if="kor.tip_korisnika_id == 1">Administrator</td>
+                    <td v-if="kor.tip_korisnika_id == 2">Korisnik</td>
                     <td><button class="btn btn-danger" v-on:click="$emit('uklanjanje', kor.id)">Ukloni</button></td>
                     <td><button class="btn btn-primary" v-on:click="$emit('izmena', kor)">Izmeni</button></td>
                 </tr>
@@ -30,3 +31,4 @@ export default {
         </table>
     `
 }
+

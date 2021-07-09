@@ -24,6 +24,11 @@ export default {
         </fieldset>
     </form>
 
+    <div class="text-center mt-3" v-if="ulogovan == false">
+        <h5>Nemate nalog?</h5>
+        <button class="btn btn-warning" v-on:click="napraviNalog()">Napravi nalog</button>
+    </div>
+
     <div class="mt-3" v-if="ulogovan == true">
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -68,6 +73,9 @@ export default {
             if (localStorage.getItem("token") == null) {
                 this.ulogovan = false;
             }
+        },
+        napraviNalog(){
+            this.$router.push("/sign-in")
         },
 
     

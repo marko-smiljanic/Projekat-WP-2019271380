@@ -65,13 +65,9 @@ if __name__ == "__main__":
 
 
 
-#srediti da se u tabeli korisnika prikazuje tip korisnika u vidu teksta, bolje odraditi u bazi to da mi entitet tip korisnika ne postoji za dzabe, jer sam do sada sve radio u komponentama i direktno proveravao tipove korisnika sa 1 ili 2
-#dovrsiti u js fajlovima da svaki ima proveru ulogovanog korisnika i da svaki renderuje template prema tome, jer sam skontao da preko kucanja same rute moze da se pristupi, sad bar da ga ne vidi
-#videti zasto ne radi izmena i brisanje prve karte? - nije radilo jer je veza bila identifikujuca i karta je bila vezana za rezervaciju!
-#srediti komentare, sve bitno ubaciti u main.py na kraj, ostalo ili obrisati ili ostaviti na potrebnom mestu
 
-#napraviti sing-in:  pocetna, log in stranica nudi opciju prijave ili kreiranja novog naloga (zabraniti kreiranje naloga sa istim korisnickim imenom i mejlom), moze da se pregleda stranica i bez naloga, administrator ima uvid u zahteve koji se naprave za kreiranje naloga i ima pravo da ih prihvati ili odbije
-##U BAZI:preporucuyje se hesovanje lozinke i neki dodatni string koji se nalepi na lozinku hesovanu????
+#srediti komentare, sve bitno ubaciti u main.py na kraj, ostalo ili obrisati ili ostaviti na potrebnom mestu
+##U BAZI:preporucuyje se hesovanje lozinke i neki dodatni string koji se nalepi na lozinku hesovanu?? KAKO OVO ODRADITI??
 
 
 # #########################  KOMENTARI VEZANI ZA PROJEKAT  ##########################

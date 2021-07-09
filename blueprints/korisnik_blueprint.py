@@ -39,7 +39,7 @@ def getOneKorisnik(korisnik_id):
     return("Nemate prava za ovaj zahtev!", 403)
 
 
-# DOBAVLJANJE ULOGOVANOG KORISNIKA DA BI NAPRAVIO KOMPONENTU ULOGOVANIKORISNIK.JS DA BI MOGAO DA PRIKAZEM KOMPONENTU PROFIL ULOGOVANOG KORISNIKA
+######################################################## DOBAVLJANJE ULOGOVANOG KORISNIKA DA BI NAPRAVIO KOMPONENTU ULOGOVANIKORISNIK.JS DA BI MOGAO DA PRIKAZEM KOMPONENTU PROFIL ULOGOVANOG KORISNIKA
 @korisnik_blueprint.route("/ulogovani", methods=["GET"])   
 @jwt_required()                                 #ovde mi je bitno da samo bude ulogovan i nista vise
 def getUlogovani():      
@@ -51,7 +51,53 @@ def getUlogovani():
             return flask.jsonify(k)             #vracam ulogovanog jer mi treba za prikaz u komponenti ulogovani korisnik... prosto cu iz komponente poslati zahtev na ovu rutu
     
     return("Not found", 404)
-#############################################################################
+
+###################################################### DOBAVLJANJE SVIH KORISNIKA DA BIH MOGAO DA NAPRAVIM SIGN-IN KOMPONENTU, TH. ISTA KAO I GET ALL KORISNICI ALI BEZ OGRANICENJA PRAVA PRISTUPA
+@korisnik_blueprint.route("/dohvatiKorisnike", methods=["GET"])
+def getAllKorisnici2():   
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * FROM korisnik")
+    korisnici = cursor.fetchall() 
+    if korisnici is not None:
+        return flask.jsonify(korisnici)
+
+    return("Not found", 404)
+
+###########################################################  pravljenje zahteva za naloge u bazi
+@korisnik_blueprint.route("/dodajZahtev", methods=["POST"])       #pravi ga neulogovani korisnik    
+def dodajZahtevZaPravljenjeNaloga():
+    baza = mysql.get_db()
+    cursor = baza.cursor() 
+    cursor.execute("INSERT INTO zahtev_za_pravljenje_naloga(korisnicko_ime, lozinka, kontakt_email) VALUES(%(korisnicko_ime)s, %(lozinka)s, %(kontakt_email)s)", flask.request.json)
+    baza.commit()
+    return flask.request.json, 201 
+
+@korisnik_blueprint.route("/dohvatiZahteve", methods=["GET"])
+@jwt_required()
+def getAllZahtevi():
+    if get_jwt().get("roles") == "ADMIN":    
+        cursor = mysql.get_db().cursor()
+        cursor.execute("SELECT * FROM zahtev_za_pravljenje_naloga")
+        korisnici = cursor.fetchall() 
+        if korisnici is not None:
+            return flask.jsonify(korisnici)
+        return("Not found", 404)
+
+    return("Nemate prava za ovaj zahtev!", 403)
+
+@korisnik_blueprint.route("/izbrisiZahtev/<int:zahtev_id>", methods=["DELETE"])   
+@jwt_required()         
+def izbrisiZahtev(zahtev_id):
+    if get_jwt().get("roles") == "ADMIN":
+        baza = mysql.get_db()
+        cursor = baza.cursor() 
+        cursor.execute("DELETE FROM zahtev_za_pravljenje_naloga WHERE id=%s", (zahtev_id, ))
+        baza.commit()
+        return ""
+
+    return("Nemate prava za ovaj zahtev!", 403)
+############################################################
+
 
 
 @korisnik_blueprint.route("", methods=["POST"]) 
