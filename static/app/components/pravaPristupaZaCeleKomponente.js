@@ -47,7 +47,7 @@ export default {     //sada ovde pisemo template
             ulogovan: false,
         }
     },
-    methods: {                      //ovo bi bilo bolje da odradim sve u undex html tj. da mu se uopste ne prikazuje opciju da klikne na profil u nav-baru ako nije ulogovan
+    methods: {                        //ovo bi bilo bolje da odradim sve u index html tj. da mu se uopste ne prikazuje opciju da klikne na profil u nav-baru ako nije ulogovan
         refreshUlogovaniKorisnik(){              
             axios.get("/api/korisnici/ulogovani").then((response) => {
                 if (localStorage.getItem("token") != null) {

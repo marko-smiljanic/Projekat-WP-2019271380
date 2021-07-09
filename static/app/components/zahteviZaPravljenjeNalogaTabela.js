@@ -3,9 +3,12 @@ export default {
         return {
             zahtevi: [],
             imaZahteva: false,
+            ulogovan: false,
+            ulogovani_korisnik: {},
+
         }
     },
-    template: `      
+    template: `  
         <table class="table table-striped" v-if="imaZahteva == true">
         <thead>
                 <tr>
@@ -28,7 +31,7 @@ export default {
             </tbody>
         </table>
 
-        <div class="mt-4" v-if="imaZahteva == false">
+        <div class="mt-4" v-if="imaZahteva == false && ulogovani_korisnik.tip_korisnika_id == 1">
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -83,14 +86,22 @@ export default {
                     this.izbrisiZahtev(id);     //da mi se ne bi refresh-ovalo kada potvrdim zahtev ovde se direktno mozda treba pozvati zahtev za brisanje a da reload ostane na klik dugmeta, jer kad potvrdim zahtev on be maca na drugu komponentu, jer kad se vratim na ovu ono se uradi refresh            
                 });
             }
-
-
-
-            //na kraju ga treba i obrisati, treba i dodadi direktno brisanje na dugme, treba izrenderovati info alert ako nema zahteva, dodati u prikaz komponenti-admin
+            
         },
+        refreshUlogovani(){              
+            axios.get("/api/korisnici/ulogovani").then((response) => {
+                if (localStorage.getItem("token") != null) {
+                    this.ulogovani_korisnik = response.data;
+                    this.ulogovan = true;
+                }else{
+                    ulogovan = false;
+                }
+            });
+        }
 
     },
     created(){
         this.refreshZahtevi();
+        this.refreshUlogovani();
     }
 }

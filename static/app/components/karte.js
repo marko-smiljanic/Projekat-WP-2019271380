@@ -95,29 +95,6 @@ export default {     //sada ovde pisemo template
         predjiNaDodavanjeUKorpu(id){
             this.$router.push(`/dodavanjeKarteUKorpu/${id}`);
         }
-        // napraviNovogKorisnika(kor){
-        //     axios.post("api/korisnici", kor).then((response) => {
-        //         this.refreshData();
-
-        //     });
-        // },
-        // setKorisnikZaIzmenu(kor){    //trenutno radi samo prelazak na drugu komponentu, ovo moram odraditi preko podataka iz komponente tabele da bi znao koji je korisnik odabran za izmenu!!!
-        //     //this.kupacZaIzmenu = {...kupac};
-
-        //     this.$router.push(`/korisnici/${kor.id}`);
-        // },
-        // izmeniKorisnika(kor){
-        //     axios.put(`/api/korisnici/${kor.id}`, kor).then((response) => {
-        //         this.refreshData();
-        //     });  
-        // },
-
-        // predjiNaDodavanje(){
-        //     this.$router.push("/dodajKorisnika");
-        // },
-        // predjiNaIzmenu(){
-        //     this.$router.push(`/korisnici/${kor.id}`);
-        // }
 
     },
     created(){

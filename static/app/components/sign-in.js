@@ -95,11 +95,6 @@ export default {
         </div>
     `,
     methods: {
-        // napraviNovogKorisnika(kor){
-        //     axios.post("api/korisnici", kor).then((response) => {
-        //         this.$router.push("/korisnici");               //ovde imamo ponovno osvezenje koje se poziva odma pri prelasku (created), odnosno ucitavanje i prikaz svih korisnika
-        //     });
-        // },
         refreshKorisnici(){
             axios.get("/api/korisnici/dohvatiKorisnike").then((response) => {
                 this.korisnici = response.data;

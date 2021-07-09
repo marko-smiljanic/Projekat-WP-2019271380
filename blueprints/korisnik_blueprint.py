@@ -11,7 +11,7 @@ korisnik_blueprint = Blueprint("korisnik_blueprint", __name__)
 
 
 @korisnik_blueprint.route("/", methods=["GET"])
-@jwt_required()   #ovo valjda znaci samo da mora biti ulogovan?
+@jwt_required()   #ovo znaci samo da mora biti ulogovan
 def getAllKorisnici():
     #print(get_jwt())  #get jwt dobavlja trenutni token i njegove claim-ove  
     if get_jwt().get("roles") == "ADMIN":      

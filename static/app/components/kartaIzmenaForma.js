@@ -37,7 +37,6 @@ export default {
                 //ovde mi se prvi put javlja problem sa datumom zato samo kastujem u javascript objekat Date
                 this.karta["vreme_pocetka_projekcije"] = new Date(this.karta["vreme_pocetka_projekcije"]).toISOString().split("Z")[0];
                 this.karta["vreme_zavrsetka_projekcije"] = new Date(this.karta["vreme_zavrsetka_projekcije"]).toISOString().split("Z")[0];
-                //mogao sam i ovde dodeliti film id this karta
                 axios.get(`/api/filmovi/${this.karta.film_id}`).then((response) => {
                     this.film = response.data;
                 });

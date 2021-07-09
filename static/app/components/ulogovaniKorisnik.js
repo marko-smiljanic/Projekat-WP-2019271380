@@ -1,4 +1,4 @@
-export default {     //sada ovde pisemo template
+export default {
     template:   `
     <h4 class="mt-3 mb-2 fw-lighter">Informacije o nalogu: </h4>
     <div class="alert alert-light shadow" role="alert" v-if="ulogovan == true">

@@ -68,21 +68,6 @@ def dodajRezervaciju():
     return("Nemate prava za ovaj zahtev!", 403)
 
 
-# @film_blueprint.route("/<int:film_id>", methods=["PUT"])    #mislim da mi ova funkcionalnost za rezervaciju ne treba   
-# def izmeniFilm(film_id):
-#     film = dict(flask.request.json)
-#     film["film_id"] = film_id
-
-#     baza = mysql.get_db()
-#     cursor = baza.cursor() 
-#     cursor.execute("UPDATE film SET naziv=%(naziv)s, godina_izlaska=%(godina_izlaska)s, reziser=%(reziser)s, kratak_opis=%(kratak_opis)s WHERE id=%(film_id)s", film)
-#     baza.commit()
-#     cursor.execute("SELECT * FROM film WHERE id=%s", (film_id, ))
-#     film = cursor.fetchone() 
-
-#     return flask.jsonify(film)
-
-
 @rezervacija_blueprint.route("/<int:rezervacija_id>", methods=["DELETE"]) 
 @jwt_required()             
 def izbrisiRezervaciju(rezervacija_id):
