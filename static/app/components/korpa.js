@@ -85,7 +85,7 @@ export default {     //sada ovde pisemo template
         napraviNovuKartuUrezervaciji(){  //ovde moram imati i rezervaciju u json-u, to ce biti i poslednji korak kreiranja rezervacije!
             //sada odradim za rezervaciju, kreiram novu (tako sto uvezem sve iz local storage-a), i prosledim
             
-            //imao sam entitet u bazi karta_u_rezervaciji, ali ne vi dim svrhi da kad se klikne dodaj u rezervaciju da pravim dva entiteta automatski.
+            //imao sam entitet u bazi karta_u_rezervaciji, ali ne vidim svrhu da kad se klikne dodaj u rezervaciju da pravim dva entiteta automatski.
 
             let karta_iz_korpe = JSON.parse(localStorage.getItem("karta_u_korpi"));
             //console.log(rezervacija.kolicina);
@@ -94,7 +94,7 @@ export default {     //sada ovde pisemo template
             let karta_id = parseInt(karta_iz_korpe["karta_id"]);  //ili this.karta.id, ali bolje ovako jer dohvatamo sve iz local storage-a
             let ukupna_cena = (kolicina * this.karta.cena);
 
-            let rezervacija = {"kolicina": kolicina, "ukupna_cena": ukupna_cena, "korisnik_id": this.ulogovani_korisnik.id, "karta_id": karta_id}
+            let rezervacija = {"kolicina": kolicina, "ukupna_cena": ukupna_cena, "korisnik_id": this.ulogovani_korisnik.id, "karta_id": karta_id};
             
             axios.post("api/rezervacije", rezervacija).then((response) => {
 

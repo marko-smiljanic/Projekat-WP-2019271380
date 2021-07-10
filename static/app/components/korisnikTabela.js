@@ -5,7 +5,7 @@ export default {
         return {}
     },
     template: `      
-        <table class="table table-striped">
+        <table class="table table-striped shadow">
         <thead>
                 <tr>
                     <th>ID</th>

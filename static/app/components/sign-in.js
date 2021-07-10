@@ -68,7 +68,7 @@ export default {
                     <input type="text" name="email" v-model="noviKorisnik.kontakt_email" class="form-control" placeholder="Kontakt email" required>
                 </div>
                 <div class="mb-3">
-                    <input type="submit" class="btn btn-warning" value="Dodaj">
+                    <input type="submit" class="btn btn-warning" value="Napravi nalog">
                 </div>
             </fieldset>
         </form>

@@ -7,8 +7,8 @@ export default {
         }
     },
     template: `   
-        <h1>Rezervacije</h1>   
-        <table class="table table-striped">
+        <h1 class="mt-3 mb-3">Rezervacije</h1>   
+        <table class="table table-striped shadow">
         <thead>
                 <tr>
                     <th>Kolicina</th>

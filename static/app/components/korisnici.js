@@ -1,7 +1,7 @@
 export default {
     template:   `
     <div>
-        <h1>Korisnici</h1>
+        <h1 class="mt-3 mb-4">Korisnici</h1>
         <tabela-korisnika v-bind:korisnici="korisnici" v-on:uklanjanje="deleteKorisnik" v-on:izmena="setKorisnikZaIzmenu"></tabela-korisnika> 
         
         <div class="text-center">

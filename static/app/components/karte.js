@@ -6,7 +6,7 @@ export default {     //sada ovde pisemo template
     
     <div v-if="imaKarata == true">
         <h3 class="mb-4 mt-3 text-center">Dostupne karte za film: {{film.naziv}} {{film.godina_izlaska}}</h3>
-        <div v-for="k in karte">
+        <div class="mb-4" v-for="k in karte">
             <div class="card text-dark bg-light mb-3 shadow mx-auto" style="max-width: 20rem;" v-if="k.film_id == film.id">
                 <div class="card-header">{{film.naziv}}</div>
                 <div class="card-body">
