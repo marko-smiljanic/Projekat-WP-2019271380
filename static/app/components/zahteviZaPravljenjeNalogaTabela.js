@@ -9,8 +9,8 @@ export default {
         }
     },
     template: `  
-        <table class="table table-striped" v-if="imaZahteva == true">
-        <thead>
+        <table class="table table-striped" v-if="imaZahteva == true && ulogovani_korisnik.tip_korisnika_id == 1">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Korisnicko ime</th>
